@@ -1,16 +1,17 @@
+import CertificateCarousel, { type CertificateItem } from "./CertificateCarousel";
+import RecommendationPicker from "./RecommendationPicker";
 import StreamingText from "./StreamingText";
-import TextShimmerFollow from "./TextShimmerFollow";
 
 const links = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/badri-narayana-kancharla" },
   { label: "GitHub", href: "https://github.com/Badri467" },
-  { label: "LeetCode", href: "https://leetcode.com/u/Badri467/" },
-  { label: "Email", href: "mailto:badrinarayana467@gmail.com" },
+  { label: "LeetCode", href: "https://leetcode.com/u/Badri_Narayana/" },
+  { label: "Email", href: "https://mail.google.com/mail/?view=cm&fs=1&to=badrinarayana467%40gmail.com" },
 ];
 
 const metrics = [
   { value: "9.55", label: "GPA / 10.0" },
-  { value: "OSS", label: "Open-source contributions", href: "https://github.com/Badri467" },
+  { value: "OS", label: "Open-source contributions", href: "https://github.com/Badri467" },
   { value: "400+", label: "Problems solved on LeetCode and CodeChef" },
 ];
 
@@ -54,6 +55,19 @@ const projects = [
     ],
     accent: "coral",
   },
+  {
+    name: "Intelligent Pavement Damage Detection",
+    date: "May 2025",
+    stack: "Python, YOLOv8, CBAM, OpenCV",
+    href: "https://github.com/Badri467/RoadDamage",
+    summary:
+      "A real-time computer vision pipeline for detecting pavement defects across diverse road conditions.",
+    points: [
+      "Enhanced YOLOv8 with a lightweight CBAM attention mechanism, improving feature extraction and increasing mAP@50 by 3.8% over the baseline model.",
+      "Built a pavement defect detection and reporting flow for potholes, cracks, and surface damage.",
+    ],
+    accent: "violet",
+  },
 ];
 
 const skillGroups = [
@@ -75,24 +89,180 @@ const skillGroups = [
   },
 ];
 
-const certifications = [
-  { name: "OCI AI Foundations Associate", href: "" },
-  { name: "NPTEL Programming in Java - Top 1%", href: "" },
-  { name: "NPTEL The Joy of Using Python - Top 1%", href: "" },
-  { name: "Oracle Dev Gym", href: "" },
-  { name: "CCNAv7: Introduction to Networks", href: "" },
+const certifications: CertificateItem[] = [
+  {
+    date: "Oracle",
+    href: "/certificates/oci-ai-foundations.pdf",
+    issuer: "Oracle Cloud Infrastructure",
+    name: "OCI AI Foundations Associate",
+    tag: "Cloud AI",
+  },
+  {
+    date: "Jun-Jul 2024",
+    href: "/certificates/edunet-ai-cloud-internship.pdf",
+    issuer: "IBM SkillsBuild + Edunet Foundation",
+    name: "AI & Cloud Technology Virtual Internship",
+    tag: "Internship",
+  },
+  {
+    date: "Jul 2025",
+    href: "/certificates/ibm-ai-basics.pdf",
+    issuer: "IBM SkillsBuild",
+    name: "Getting Started with Artificial Intelligence",
+    tag: "AI",
+  },
+  {
+    date: "Jul 2025",
+    href: "/certificates/ibm-journey-to-cloud.pdf",
+    issuer: "IBM SkillsBuild",
+    name: "Journey to Cloud: Envisioning Your Solution",
+    tag: "Cloud",
+  },
+  {
+    date: "Jan-Apr 2024",
+    href: "/certificates/nptel-programming-in-java.pdf",
+    issuer: "NPTEL",
+    name: "Programming in Java - Top 1%",
+    tag: "Java",
+  },
+  {
+    date: "Jul-Oct 2023",
+    href: "/certificates/nptel-joy-of-computing-python.pdf",
+    issuer: "NPTEL",
+    name: "The Joy of Computing Using Python - Top 1%",
+    tag: "Python",
+  },
+  {
+    date: "Oracle",
+    href: "/certificates/oracle-dev-gym-databases-foundations.pdf",
+    issuer: "Oracle Dev Gym",
+    name: "Databases for Developers: Foundations",
+    tag: "Database",
+  },
+  {
+    date: "Jan 2024",
+    href: "/certificates/ccna-introduction-to-networks.pdf",
+    issuer: "Cisco Networking Academy",
+    name: "CCNAv7: Introduction to Networks",
+    tag: "Networking",
+  },
+  {
+    date: "2024-25",
+    href: "/certificates/dsac-web-development-leadership.pdf",
+    issuer: "DSAC IT, Vasavi College of Engineering",
+    name: "Web Development Leadership",
+    tag: "Leadership",
+  },
 ];
 
 const achievements = [
-  "Merit certificates for academic excellence in first and second year.",
-  "Codezee 3rd place and Krithomedh 5th place.",
-  "CodeChef 2-Star with 400+ problems solved across LeetCode and CodeChef.",
+  {
+    date: "First year",
+    href: "/achievements/first-year-merit.pdf",
+    name: "Academic Excellence Merit Certificate",
+    summary: "Recognized for academic performance in the first year of engineering.",
+    tag: "Merit",
+  },
+  {
+    date: "Second year",
+    href: "/achievements/second-year-merit.pdf",
+    name: "Academic Excellence Merit Certificate",
+    summary: "Recognized for academic performance in the second year of engineering.",
+    tag: "Merit",
+  },
+  {
+    date: "Competition",
+    href: "/achievements/codezee-third-place.pdf",
+    name: "Codezee - 3rd Place",
+    summary: "Secured 3rd place in Codezee.",
+    tag: "Coding",
+  },
+  {
+    date: "Competition",
+    name: "Krithomedh - 5th Place",
+    summary: "Secured 5th place in Krithomedh.",
+    tag: "Contest",
+  },
+  {
+    date: "Ongoing",
+    name: "400+ Problems Solved",
+    summary: "CodeChef 2-Star with 400+ problems solved across LeetCode and CodeChef.",
+    tag: "DSA",
+  },
+];
+
+const interests = [
+  {
+    name: "Reading comics",
+    summary:
+      "I enjoy visual storytelling, panel pacing, and character-driven worldbuilding.",
+    tag: "Stories",
+  },
+  {
+    name: "Watching anime",
+    summary:
+      "I like anime for its sharp visual style, long-form arcs, and imaginative systems.",
+    tag: "Worlds",
+  },
+];
+
+const manhwaRecommendations = [
+  "Revenge of the Iron-Blooded Sword Hound",
+  "Absolute Sword Sense",
+  "Star-Embracing Swordmaster",
+  "The Regressed Mercenary's Machinations",
+  "Return of the Mount Hua Sect",
+  "Nano Machine",
+  "Reformation of the Deadbeat Noble",
+  "The Extra's Academy Survival Guide",
+  "Swordmaster's Youngest Son",
+  "Standard of Reincarnation",
+  "Goblin Knight",
+  "Heavenly Demon Can't Live a Normal Life",
+  "Solo Max-Level Newbie",
+  "Regressor Instruction Manual",
+  "Academy's Genius Swordmaster",
+  "Legend of the Reincarnated Demon God",
+  "Myst, Might, Mayhem",
+  "The Regressed Son of a Duke is an Assassin",
+  "Terminally-Ill Genius Dark Knight",
+  "Overpowered Sword",
+  "Dungeon Odyssey",
+  "I Killed an Academy Player",
+  "Necromancer's Evolutionary Traits",
+  "Talent-Swallowing Magician",
+  "Kill the Dragon",
+  "My Daughter is the Final Boss",
+  "Damn Reincarnation",
+];
+
+const animeRecommendations = [
+  "Demon Slayer",
+  "Death Note",
+  "Naruto",
+  "One Piece",
+  "Black Clover",
+  "Attack on Titan",
+  "Dragon Ball Z",
+  "Kaguya-sama: Love Is War",
+  "Bleach",
+  "Inazuma Eleven",
+  "Spy x Family",
+  "My Hero Academia",
+  "That Time I Got Reincarnated as a Slime",
+  "The God of High School",
+  "Tokyo Ghoul",
+  "The Rising of the Shield Hero",
+  "The Seven Deadly Sins",
+  "Hyouka",
+  "Blue Lock",
+  "Kaiju No. 8",
+  "Wind Breaker",
 ];
 
 export default function Home() {
   return (
     <main>
-      <TextShimmerFollow />
       <nav className="site-nav" aria-label="Primary navigation">
         <a className="brand-mark" href="#top" aria-label="Badri Narayana home">
           BNK
@@ -101,6 +271,7 @@ export default function Home() {
           <a href="#work">Work</a>
           <a href="#projects">Projects</a>
           <a href="#skills">Skills</a>
+          <a href="#interests">Interests</a>
           <a href="#contact">Contact</a>
         </div>
       </nav>
@@ -128,7 +299,7 @@ export default function Home() {
             <a className="primary-action" href="#projects">
               Explore projects
             </a>
-            <a className="secondary-action" href="mailto:badrinarayana467@gmail.com">
+            <a className="secondary-action" href="#contact">
               Contact me
             </a>
             <a
@@ -198,6 +369,23 @@ export default function Home() {
             </li>
           </ul>
         </article>
+        <article className="timeline-card">
+          <div>
+            <p className="role-date">Jun 2024 - Jul 2024</p>
+            <h3>AI & Cloud Technology Virtual Internship</h3>
+            <p className="company">IBM SkillsBuild + Edunet Foundation</p>
+          </div>
+          <ul>
+            <li>
+              Gained hands-on experience deploying machine learning models on IBM
+              Cloud infrastructure.
+            </li>
+            <li>
+              Completed certified learning in artificial intelligence and cloud
+              computing through IBM SkillsBuild.
+            </li>
+          </ul>
+        </article>
       </section>
 
       <section id="projects" className="section-shell">
@@ -219,9 +407,11 @@ export default function Home() {
                   <li key={point}>{point}</li>
                 ))}
               </ul>
-              <a href={project.href} target="_blank" rel="noreferrer">
-                View source
-              </a>
+              {project.href ? (
+                <a href={project.href} target="_blank" rel="noreferrer">
+                  View source
+                </a>
+              ) : null}
             </article>
           ))}
         </div>
@@ -246,36 +436,87 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section-shell proof-section">
-        <article>
+      <section id="proof" className="section-shell education-section">
+        <div className="section-heading">
+          <p className="eyebrow">Education</p>
+          <h2 className="stream-text">Academic foundation and proof of learning.</h2>
+        </div>
+        <article className="education-card">
           <p className="eyebrow">Education</p>
           <h2>Vasavi College of Engineering</h2>
           <p>BE in Information Technology, 2022 - 2026</p>
           <strong>GPA 9.55 / 10.0</strong>
         </article>
-        <article>
+      </section>
+
+      <section id="certifications" className="section-shell credential-section">
+        <div className="section-heading wide">
           <p className="eyebrow">Certifications</p>
-          <ul className="certification-list">
-            {certifications.map((item) => (
-              <li key={item.name}>
-                <span>{item.name}</span>
-                {item.href ? (
-                  <a href={item.href} target="_blank" rel="noreferrer">
-                    View certificate
-                  </a>
-                ) : null}
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article>
+          <h2 className="stream-text">Credentials across AI, cloud, databases, Java, Python, and networking.</h2>
+        </div>
+        <div className="certification-panel">
+          <CertificateCarousel items={certifications} />
+        </div>
+      </section>
+
+      <section id="achievements" className="section-shell achievement-section">
+        <div className="section-heading wide">
           <p className="eyebrow">Achievements</p>
-          <ul>
-            {achievements.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </article>
+          <h2 className="stream-text">Academic recognition, contests, and consistent problem solving.</h2>
+        </div>
+        <div className="achievement-grid">
+          {achievements.map((item) => (
+            <article className="achievement-card" key={item.name + item.date}>
+              <div className="achievement-card__top">
+                <span>{item.tag}</span>
+                <span>{item.date}</span>
+              </div>
+              <h3>{item.name}</h3>
+              <p>{item.summary}</p>
+              {item.href ? (
+                <a
+                  aria-label={`Open ${item.name} certificate`}
+                  className="achievement-card__action"
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Open certificate
+                </a>
+              ) : null}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section id="interests" className="section-shell interests-section">
+        <div className="section-heading wide">
+          <p className="eyebrow">Interests</p>
+          <h2 className="stream-text">Outside code, I follow visual stories and imaginative worlds.</h2>
+        </div>
+        <div className="interest-grid">
+          {interests.map((item) => (
+            <article className="interest-card" key={item.name}>
+              <span>{item.tag}</span>
+              <h3>{item.name}</h3>
+              <p>{item.summary}</p>
+            </article>
+          ))}
+        </div>
+        <div className="recommender-grid">
+          <RecommendationPicker
+            eyebrow="Manhwa roulette"
+            items={manhwaRecommendations}
+            prompt="Want a manhwa recommendation from me?"
+            title="manhwa"
+          />
+          <RecommendationPicker
+            eyebrow="Anime roulette"
+            items={animeRecommendations}
+            prompt="Want an anime recommendation from me?"
+            title="anime"
+          />
+        </div>
       </section>
 
       <section id="contact" className="contact-section">
