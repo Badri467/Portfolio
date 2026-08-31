@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b0b0c",
+  themeColor: "#04141d",
   colorScheme: "dark",
 };
 
@@ -64,7 +64,6 @@ export default function RootLayout({
         <Backdrop />
         <ScrollProgress />
         <SmoothScroll>{children}</SmoothScroll>
-        <div className="grain" aria-hidden="true" />
       </body>
     </html>
   );

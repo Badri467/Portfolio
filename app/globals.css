@@ -4,28 +4,32 @@
    Design tokens
    ============================================================ */
 :root {
-  /* Surfaces — cool near-black, single family */
-  --bg: #0b0b0c;
-  --bg-elevated: #101013;
-  --surface: #141417;
-  --surface-2: #1b1b1f;
-  --surface-3: #232329;
+  /* Surfaces — deep-space blue over a cinematic backdrop */
+  --bg: #04141d;
+  --bg-elevated: #062a3c;
+  --deep-space: #023047;
+  --surface: rgba(3, 21, 31, 0.9);
+  --surface-2: rgba(5, 30, 44, 0.94);
+  --surface-3: rgba(8, 41, 59, 0.96);
+  --glass: rgba(2, 17, 26, 0.55);
 
-  /* Hairlines */
-  --line: rgba(255, 255, 255, 0.07);
-  --line-strong: rgba(255, 255, 255, 0.12);
+  /* Hairlines — sky-blue tinted */
+  --line: rgba(142, 202, 230, 0.14);
+  --line-strong: rgba(142, 202, 230, 0.26);
 
-  /* Text — one cool-gray ramp */
-  --text: #ededf0;
-  --text-secondary: #a4a4ad;
-  --text-tertiary: #6c6c76;
+  /* Text */
+  --text: #eef5f8;
+  --text-secondary: #b3c8d2;
+  --text-tertiary: #7d97a3;
 
-  /* Accent — electric blue, used sparingly */
-  --accent: #3b82f6;
-  --accent-bright: #60a5fa;
-  --accent-ink: #04122e;
-  --accent-soft: rgba(59, 130, 246, 0.14);
-  --accent-line: rgba(59, 130, 246, 0.32);
+  /* Accents — blue-green + sky blue, warm amber/orange as the spark */
+  --accent: #219ebc;
+  --accent-bright: #8ecae6;
+  --accent-ink: #012231;
+  --accent-soft: rgba(33, 158, 188, 0.16);
+  --accent-line: rgba(142, 202, 230, 0.34);
+  --warm: #ffb703;
+  --warm-deep: #fb8500;
 
   /* Radii */
   --r-xs: 6px;
@@ -34,15 +38,15 @@
   --r-lg: 24px;
   --r-full: 999px;
 
-  /* Elevation — layered, faint blue tint */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.24);
+  /* Elevation — deep blue-tinted */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(1, 12, 18, 0.35);
   --shadow-md:
-    0 2px 6px rgba(0, 0, 0, 0.36), 0 12px 32px rgba(0, 0, 0, 0.42),
+    0 2px 6px rgba(0, 0, 0, 0.4), 0 14px 34px rgba(1, 12, 18, 0.5),
     0 0 0 1px var(--line);
   --shadow-lg:
-    0 8px 24px rgba(0, 0, 0, 0.44), 0 32px 80px rgba(4, 10, 28, 0.5),
+    0 10px 28px rgba(0, 0, 0, 0.5), 0 36px 88px rgba(1, 14, 22, 0.62),
     0 0 0 1px var(--line);
-  --shadow-accent: 0 20px 60px rgba(59, 130, 246, 0.18);
+  --shadow-accent: 0 22px 60px rgba(33, 158, 188, 0.22);
 
   /* Layout */
   --container: 1120px;
@@ -81,7 +85,7 @@ body {
   min-height: 100dvh;
   min-width: 320px;
   overflow-x: hidden;
-  background: var(--bg);
+  background: transparent;
   color: var(--text);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   font-size: 16px;
@@ -91,36 +95,18 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Base wash + fine grid, both very quiet */
+/* Solid fallback behind the fixed image backdrop */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -4;
-  background:
-    radial-gradient(55% 45% at 8% -8%, rgba(59, 130, 246, 0.18), transparent 70%),
-    radial-gradient(45% 40% at 100% 8%, rgba(37, 99, 235, 0.12), transparent 70%),
-    radial-gradient(70% 55% at 50% 118%, rgba(96, 165, 250, 0.1), transparent 70%),
-    var(--bg);
-  pointer-events: none;
-}
-
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
   z-index: -3;
-  background-image:
-    linear-gradient(var(--line) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: radial-gradient(120% 90% at 50% 0%, #000 0%, transparent 75%);
-  opacity: 0.5;
+  background: var(--bg);
   pointer-events: none;
 }
 
 /* ============================================================
-   Cinematic backdrop
+   Cinematic image backdrop (parallax, moves with scroll)
    ============================================================ */
 .backdrop {
   position: fixed;
@@ -130,72 +116,49 @@ body::after {
   pointer-events: none;
 }
 
-.backdrop__aurora {
+/* Full-page scene — a portrait painting that pans from sky to forest path
+   as you scroll. Positioned wider than the viewport so its sides never clip. */
+.backdrop__scene {
   position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.75;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* Wide sunset scene layered over the hero, fading into the page scene. */
+.backdrop__hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 116vh;
+  background: url("/scene-wide.webp") center 22% / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 62%, transparent 100%);
   will-change: transform;
 }
 
-.backdrop__aurora--1 {
-  top: -20%;
-  left: -14%;
-  width: 50vw;
-  height: 50vw;
-  background: radial-gradient(circle, rgba(59, 130, 246, 0.42), transparent 66%);
-  animation: auroraDrift1 34s ease-in-out infinite alternate;
-}
-
-.backdrop__aurora--2 {
-  top: 18%;
-  right: -18%;
-  width: 44vw;
-  height: 44vw;
-  background: radial-gradient(circle, rgba(37, 99, 235, 0.32), transparent 66%);
-  animation: auroraDrift2 44s ease-in-out infinite alternate;
-}
-
-.backdrop__aurora--3 {
-  bottom: -24%;
-  left: 26%;
-  width: 56vw;
-  height: 56vw;
-  background: radial-gradient(circle, rgba(96, 165, 250, 0.22), transparent 66%);
-  animation: auroraDrift3 52s ease-in-out infinite alternate;
-}
-
-.backdrop__net {
+/* Readability wash — darker in dense content, lighter over the hero. */
+.backdrop__wash {
   position: absolute;
   inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.9;
-  mask-image: linear-gradient(180deg, #000 0%, #000 72%, transparent 100%);
+  background:
+    linear-gradient(180deg, rgba(2, 16, 25, 0.34) 0%, rgba(2, 16, 25, 0.56) 34%, rgba(2, 16, 25, 0.64) 100%),
+    linear-gradient(90deg, rgba(2, 16, 25, 0.68) 0%, rgba(2, 16, 25, 0.1) 55%, transparent 100%);
 }
 
-.backdrop__vignette {
+.backdrop__grain {
   position: absolute;
   inset: 0;
-  background: radial-gradient(130% 100% at 50% 16%, transparent 55%, rgba(4, 6, 12, 0.42) 100%);
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-@keyframes auroraDrift1 {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(14%, 10%, 0) scale(1.14); }
-}
-
-@keyframes auroraDrift2 {
-  from { transform: translate3d(0, 0, 0) scale(1.08); }
-  to { transform: translate3d(-12%, 16%, 0) scale(1); }
-}
-
-@keyframes auroraDrift3 {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(10%, -12%, 0) scale(1.1); }
-}
-
-/* Scroll progress rail */
+/* Scroll progress rail — sunset gradient */
 .scroll-progress {
   position: fixed;
   top: 0;
@@ -203,18 +166,8 @@ body::after {
   right: 0;
   height: 2px;
   z-index: calc(var(--z-nav) + 1);
-  background: linear-gradient(90deg, var(--accent), var(--accent-bright));
+  background: linear-gradient(90deg, var(--accent-bright), var(--accent) 45%, var(--warm) 80%, var(--warm-deep));
   transform: scaleX(0);
-}
-
-/* Grain overlay */
-.grain {
-  position: fixed;
-  inset: 0;
-  z-index: var(--z-overlay);
-  pointer-events: none;
-  opacity: 0.028;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 a {
@@ -325,7 +278,7 @@ p {
   inset-inline: 0;
   top: 0;
   height: 180px;
-  background: radial-gradient(60% 100% at 50% 0%, rgba(59, 130, 246, 0.06), transparent 70%);
+  background: radial-gradient(60% 100% at 50% 0%, rgba(33, 158, 188, 0.10), transparent 70%);
   pointer-events: none;
 }
 
@@ -399,14 +352,15 @@ p {
 }
 
 .btn--primary {
-  --btn-bg: var(--accent);
+  --btn-bg: linear-gradient(180deg, var(--accent-bright), var(--accent));
   border-color: transparent;
-  color: #fff;
+  color: var(--accent-ink);
+  font-weight: 650;
   box-shadow: var(--shadow-accent);
 }
 
 .btn--primary:hover {
-  --btn-bg: var(--accent-bright);
+  --btn-bg: linear-gradient(180deg, #a5d8ec, var(--accent-bright));
   border-color: transparent;
 }
 
@@ -466,8 +420,9 @@ p {
   padding: 8px 8px 8px 16px;
   border: 1px solid var(--line);
   border-radius: var(--r-full);
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(12px) saturate(1.3);
+  background: var(--glass);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
   box-shadow: var(--shadow-md);
   transition: translate 0.4s var(--ease-out), opacity 0.3s var(--ease-out);
 }
@@ -579,46 +534,31 @@ p {
   min-height: 100dvh;
   display: flex;
   align-items: center;
-  padding-block: 160px 100px;
+  padding-block: 168px 120px;
   overflow: hidden;
 }
 
-.hero::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 8%;
-  right: -6%;
-  width: 60%;
-  height: 80%;
-  background: radial-gradient(circle at 60% 40%, rgba(59, 130, 246, 0.16), transparent 62%);
-  filter: blur(30px);
-  pointer-events: none;
-}
-
-@media (max-width: 900px) {
-  .hero::before {
-    right: -20%;
-    width: 90%;
-    opacity: 0.7;
-  }
-}
-
-.hero__grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(32px, 6vw, 80px);
-  align-items: center;
+.hero__inner {
   width: 100%;
+  max-width: 680px;
 }
 
 .hero__eyebrow {
-  margin-bottom: 28px;
+  margin-bottom: 22px;
+}
+
+.hero__greeting {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  color: var(--text-secondary);
+  margin-bottom: 6px;
 }
 
 .hero h1 {
-  font-size: clamp(2.6rem, 7vw, 4.6rem);
-  letter-spacing: -0.03em;
+  font-size: clamp(2.9rem, 9vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
 }
 
 .hero h1 .line {
@@ -626,15 +566,44 @@ p {
   overflow: hidden;
 }
 
+.hero h1 .line > span {
+  display: block;
+}
+
+.hero__name-2 {
+  background: linear-gradient(100deg, var(--accent-bright), var(--accent) 55%, var(--accent-bright));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__role {
+  margin-top: 18px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-bright);
+}
+
+.hero__role::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 2px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, var(--accent), transparent);
+}
+
 .hero__lede {
-  margin-top: 26px;
+  margin-top: 22px;
   max-width: 46ch;
-  font-size: clamp(1.05rem, 2vw, 1.22rem);
+  font-size: clamp(1.02rem, 2vw, 1.18rem);
   color: var(--text-secondary);
 }
 
 .hero__actions {
-  margin-top: 36px;
+  margin-top: 34px;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -661,121 +630,54 @@ p {
   width: 5px;
   height: 5px;
   border-radius: var(--r-full);
+  background: var(--warm);
+  box-shadow: 0 0 8px rgba(255, 183, 3, 0.7);
+}
+
+/* Scroll cue */
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  translate: -50% 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-tertiary);
+  transition: color 0.2s var(--ease-out);
+}
+
+.hero__scroll:hover {
+  color: var(--text-secondary);
+}
+
+.hero__scroll-mouse {
+  width: 22px;
+  height: 34px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-full);
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.hero__scroll-dot {
+  width: 3px;
+  height: 7px;
+  border-radius: var(--r-full);
   background: var(--accent-bright);
 }
 
-/* 3D slab */
-.slab {
-  position: relative;
-  aspect-ratio: 1 / 1.05;
-  perspective: 1400px;
-  perspective-origin: 50% 40%;
-}
-
-.slab__stage {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-}
-
-.slab__plane {
-  position: absolute;
-  inset: 8%;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-md);
-  background:
-    linear-gradient(140deg, rgba(59, 130, 246, 0.08), transparent 60%),
-    var(--surface);
-  box-shadow: var(--shadow-lg);
-  transform-style: preserve-3d;
-}
-
-.slab__plane--back {
-  inset: 16%;
-  background:
-    linear-gradient(140deg, rgba(59, 130, 246, 0.05), transparent 60%),
-    var(--bg-elevated);
-  opacity: 0.7;
-}
-
-.slab__plane--screen {
-  background:
-    radial-gradient(120% 90% at 50% 0%, rgba(59, 130, 246, 0.16), transparent 60%),
-    linear-gradient(180deg, var(--surface-2), var(--surface));
-}
-
-.slab__plane--screen .slab__grid {
-  border-radius: inherit;
-}
-
-.slab__grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(var(--line-strong) 1px, transparent 1px),
-    linear-gradient(90deg, var(--line-strong) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: radial-gradient(circle at 50% 32%, #000, transparent 78%);
-  opacity: 0.6;
-}
-
-.slab__avatar {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  transform-style: preserve-3d;
-}
-
-.avatar {
-  position: relative;
-  width: 74%;
-  filter: drop-shadow(0 18px 30px rgba(0, 0, 0, 0.45));
-}
-
-.avatar__svg {
-  width: 100%;
-  height: auto;
-  display: block;
-}
-
-.avatar__tag {
-  position: absolute;
-  left: 50%;
-  bottom: -14%;
-  translate: -50% 0;
-  white-space: nowrap;
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-  color: var(--text-tertiary);
-}
-
-.avatar__tag::before {
-  content: "";
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-right: 7px;
-  border-radius: var(--r-full);
-  background: #4ade80;
-  box-shadow: 0 0 10px rgba(74, 222, 128, 0.7);
-  vertical-align: middle;
-}
-
-@media (max-width: 900px) {
-  .hero__grid {
-    grid-template-columns: 1fr;
+@media (max-width: 640px) {
+  .hero {
+    padding-block: 140px 110px;
   }
-  .slab {
-    order: -1;
-    width: min(320px, 74vw);
-    margin: 0 0 8px;
-    aspect-ratio: 1 / 1;
-  }
-}
-
-@media (max-width: 560px) {
-  .slab {
+  .hero__scroll {
     display: none;
   }
 }
@@ -920,7 +822,7 @@ a.metric:hover {
   border-radius: inherit;
   background: radial-gradient(
     240px circle at var(--mx, 50%) var(--my, 0%),
-    rgba(59, 130, 246, 0.12),
+    rgba(142, 202, 230, 0.14),
     transparent 70%
   );
   opacity: 0;
@@ -1119,7 +1021,7 @@ a.metric:hover {
   border: 1px solid var(--line-strong);
   border-radius: var(--r-md);
   background:
-    linear-gradient(150deg, rgba(59, 130, 246, 0.09), transparent 55%),
+    linear-gradient(150deg, rgba(33, 158, 188, 0.12), transparent 55%),
     var(--surface-2);
   box-shadow: var(--shadow-lg);
   transform-origin: top center;
@@ -1353,8 +1255,8 @@ a.metric:hover {
   padding-block: clamp(72px, 12vw, 130px);
   border-top: 1px solid var(--line);
   background:
-    radial-gradient(60% 60% at 20% 0%, rgba(59, 130, 246, 0.08), transparent 70%),
-    var(--bg);
+    radial-gradient(60% 60% at 20% 0%, rgba(255, 183, 3, 0.08), transparent 70%),
+    linear-gradient(180deg, rgba(2, 16, 25, 0.4), rgba(2, 16, 25, 0.72));
 }
 
 .footer__grid {
@@ -1446,9 +1348,5 @@ a.metric:hover {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-
-  .slab {
-    display: none;
   }
 }

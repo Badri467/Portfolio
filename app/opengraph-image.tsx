@@ -15,37 +15,38 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "80px",
-          background: "#0b0b0c",
+          background: "#04141d",
           backgroundImage:
-            "radial-gradient(600px circle at 8% 0%, rgba(59,130,246,0.28), transparent 60%)",
-          color: "#ededf0",
+            "radial-gradient(680px circle at 6% -10%, rgba(33,158,188,0.35), transparent 60%), radial-gradient(560px circle at 100% 120%, rgba(255,183,3,0.18), transparent 60%)",
+          color: "#eef5f8",
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 26, color: "#60a5fa" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 16, fontSize: 26, color: "#8ecae6" }}>
           <div
             style={{
               width: 44,
               height: 44,
               borderRadius: 999,
-              background: "#3b82f6",
+              background: "#219ebc",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              color: "#fff",
+              color: "#012231",
               fontSize: 18,
+              fontWeight: 700,
             }}
           >
             BK
           </div>
-          AI · Backend · Production systems
+          Code · Create · Solve
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <div style={{ fontSize: 76, fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.05 }}>
             Badri Narayana Kancharla
           </div>
-          <div style={{ fontSize: 32, color: "#a4a4ad" }}>
+          <div style={{ fontSize: 32, color: "#b3c8d2" }}>
             Full-Stack &amp; AI Systems Engineer
           </div>
         </div>

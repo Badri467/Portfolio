@@ -1,20 +1,11 @@
 "use client";
 
 import { useRef } from "react";
-import {
-  motion,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { useReducedMotionSafe } from "./useReducedMotionSafe";
 import { profile } from "../content";
 import MagneticButton from "./MagneticButton";
-import Avatar from "./Avatar";
 import { ArrowRight } from "./icons";
-
-const headlineLines = ["Badri Narayana", "Kancharla"];
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -24,121 +15,118 @@ export default function Hero() {
     target: ref,
     offset: ["start start", "end start"],
   });
-  const textY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 90]);
-  const slabY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 160]);
-  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  // Mouse-reactive slab rotation
-  const rx = useMotionValue(0);
-  const ry = useMotionValue(0);
-  const srx = useSpring(rx, { stiffness: 60, damping: 18 });
-  const sry = useSpring(ry, { stiffness: 60, damping: 18 });
-
-  const handleMove = (event: React.MouseEvent) => {
-    if (reduce) return;
-    const { innerWidth, innerHeight } = window;
-    ry.set((event.clientX / innerWidth - 0.5) * 18);
-    rx.set((0.5 - event.clientY / innerHeight) * 18);
-  };
+  const textY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 80]);
+  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
-    <section
-      id="top"
-      ref={ref}
-      className="hero container"
-      onMouseMove={handleMove}
-    >
-      <div className="hero__grid">
-        <motion.div style={{ y: textY, opacity: fade }}>
-          <motion.p
-            className="eyebrow hero__eyebrow"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            AI · Backend · Production systems
-          </motion.p>
+    <section id="top" ref={ref} className="hero container">
+      <motion.div className="hero__inner" style={{ y: textY, opacity: fade }}>
+        <motion.p
+          className="eyebrow hero__eyebrow"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          Code · Create · Solve
+        </motion.p>
 
-          <h1>
-            {headlineLines.map((line, i) => (
-              <span className="line" key={line}>
-                <motion.span
-                  style={{ display: "block" }}
-                  initial={{ y: "110%" }}
-                  animate={{ y: 0 }}
-                  transition={{
-                    duration: 0.9,
-                    ease: [0.16, 1, 0.3, 1],
-                    delay: 0.32 + i * 0.12,
-                  }}
-                >
-                  {line}
-                </motion.span>
-              </span>
-            ))}
-          </h1>
+        <motion.p
+          className="hero__greeting"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.28 }}
+        >
+          Hi, I&apos;m
+        </motion.p>
 
-          <motion.p
-            className="hero__lede"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-          >
-            {profile.intro}
-          </motion.p>
+        <h1>
+          <span className="line">
+            <motion.span
+              className="hero__name-1"
+              initial={{ y: "110%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.34 }}
+            >
+              Badri Narayana
+            </motion.span>
+          </span>
+          <span className="line">
+            <motion.span
+              className="hero__name-2"
+              initial={{ y: "110%" }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.46 }}
+            >
+              Kancharla
+            </motion.span>
+          </span>
+        </h1>
 
-          <motion.div
-            className="hero__actions"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.72 }}
-          >
-            <MagneticButton href="#projects" className="btn btn--primary">
-              Explore projects
-              <ArrowRight />
-            </MagneticButton>
-            <MagneticButton href="#contact" className="btn">
-              Contact
-            </MagneticButton>
-            <MagneticButton href={profile.resume} className="btn" download>
-              Resume
-            </MagneticButton>
-          </motion.div>
+        <motion.p
+          className="hero__role"
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.58 }}
+        >
+          {profile.role}
+        </motion.p>
 
-          <motion.div
-            className="hero__status"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-          >
-            {profile.status.map((item) => (
-              <span key={item}>{item}</span>
-            ))}
-          </motion.div>
+        <motion.p
+          className="hero__lede"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.66 }}
+        >
+          {profile.intro}
+        </motion.p>
+
+        <motion.div
+          className="hero__actions"
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.76 }}
+        >
+          <MagneticButton href="#projects" className="btn btn--primary">
+            Explore projects
+            <ArrowRight />
+          </MagneticButton>
+          <MagneticButton href="#contact" className="btn">
+            Contact
+          </MagneticButton>
+          <MagneticButton href={profile.resume} className="btn" download>
+            Resume
+          </MagneticButton>
         </motion.div>
 
         <motion.div
-          className="slab"
-          aria-hidden="true"
-          style={{ y: slabY, opacity: fade }}
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="hero__status"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
         >
-          <motion.div className="slab__stage" style={{ rotateX: srx, rotateY: sry }}>
-            <div className="slab__plane slab__plane--back" style={{ transform: "translateZ(-50px)" }} />
-            <div
-              className="slab__plane slab__plane--screen"
-              style={{ transform: "translateZ(0px)" }}
-            >
-              <div className="slab__grid" />
-              <div className="slab__avatar" style={{ transform: "translateZ(48px)" }}>
-                <Avatar />
-              </div>
-            </div>
-          </motion.div>
+          {profile.status.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
         </motion.div>
-      </div>
+      </motion.div>
+
+      <motion.a
+        href="#work"
+        className="hero__scroll"
+        aria-label="Scroll to content"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.1 }}
+      >
+        <span className="hero__scroll-mouse">
+          <motion.span
+            className="hero__scroll-dot"
+            animate={reduce ? undefined : { y: [0, 8, 0], opacity: [1, 0.3, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </span>
+        Scroll
+      </motion.a>
     </section>
   );
 }
